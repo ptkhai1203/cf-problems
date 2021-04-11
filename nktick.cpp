@@ -1,0 +1,68 @@
+
+#include <bits/stdc++.h>
+
+using namespace std;
+#define nl '\n';
+#define send {ios_base::sync_with_stdio(0);}
+
+string to_string(string s){
+    return '"' + s + '"';
+}
+string to_string(const char *s){
+    return to_string((string)s);
+}
+string to_string(bool b){
+    return (b ? "true" : "false");
+}
+template <typename A, typename B>
+string to_string(pair<A, B> p) {
+    return "(" + to_string(p.first) + ", " + to_string(p.second) + ")";
+}
+template<typename A>
+string to_string(A v){
+    bool first = true;
+    string res = "{";
+    for(const auto &x : v){
+        if(!first){
+            res += ", ";
+        }
+        first = false;
+        res += to_string(x);
+    }
+    res += "}";
+    return res;
+}
+void debug_out(){cerr << endl;}
+template<typename Head, typename... Tail>
+void debug_out(Head H, Tail... T){
+    cerr << " " << to_string(H);
+    debug_out(T...);
+}
+#define send {ios_base::sync_with_stdio(0);}
+#define help {cin.tie(0);}
+#ifdef LOCAL
+#define debug(x...) cerr << "[" << #x << "]: ", debug_out(x);
+#else
+#define debug(x...) 17
+#endif
+const int mxn = 60111;
+int n;
+int r[mxn], t[mxn];
+int dp[mxn];
+int main(){
+
+    send
+    cin >> n;
+    for(int i = 1; i <= n; ++i)
+        cin >> t[i];
+    for(int i = 1; i <= n; ++i)
+        cin >> r[i];
+    for(int i = 1; i <= n; ++i){
+        dp[i] = dp[i - 1] + t[i];
+        if(i >= 2){
+            dp[i] = min(dp[i], dp[i - 2] + r[i - 1]);
+        }
+    }
+    cout << dp[n] << '\n';    
+    return 0;
+}
