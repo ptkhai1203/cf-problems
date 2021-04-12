@@ -23,5 +23,6 @@ int main(){
            dp[i][j] = max(dp[i - 1][j], dp[i - 1][(j - a[i] + k * k) % k] + 1);
     }
     cout << dp[n][0] << nl;
+    
     return 0;
 }
